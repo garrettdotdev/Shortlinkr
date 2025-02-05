@@ -168,4 +168,62 @@ public class UrlShortenerServiceTest {
         }
     }
 
+    @Test
+    public void testEncodeWithInterruptedException() {
+        String longUrl = "http://example.com";
+        urlShortenerService.setDelay(1000); // Set a delay to ensure the thread can be interrupted
+
+        Thread thread = new Thread(() -> assertThrows(RuntimeException.class, () -> urlShortenerService.encode(longUrl)));
+
+        thread.start();
+        thread.interrupt(); // Interrupt the thread to trigger InterruptedException
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            urlShortenerService.clearDelay();
+        }
+    }
+
+    @Test
+    public void testDecodeWithInterruptedException() {
+        String shortUrl = shortlinkProperties.getBaseUrl() + "/short";
+        urlShortenerService.setDelay(1000); // Set a delay to ensure the thread can be interrupted
+
+        Thread thread = new Thread(() -> assertThrows(RuntimeException.class, () -> urlShortenerService.decode(shortUrl)));
+
+        thread.start();
+        thread.interrupt(); // Interrupt the thread to trigger InterruptedException
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            urlShortenerService.clearDelay();
+        }
+    }
+
+    @Test
+    public void testEncodeUrlWithURISyntaxException() {
+        String longUrl = "% invalid | url %";
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> urlShortenerService.encode(longUrl));
+        assertEquals("Invalid URL", exception.getMessage());
+    }
+
+    @Test
+    public void testEncodeNullUrl() {
+        String longUrl = null;
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> urlShortenerService.encode(longUrl));
+        assertEquals("Cannot encode empty URL", exception.getMessage());
+    }
+
+    @Test
+    public void testDecodeNullUrl() {
+        String shortUrl = null;
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> urlShortenerService.decode(shortUrl));
+        assertEquals("Cannot decode empty URL", exception.getMessage());
+    }
 }
