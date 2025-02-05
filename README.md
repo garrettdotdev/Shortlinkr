@@ -1,6 +1,41 @@
 # Shortlinkr
 ### A simple URL shortener
 
+![Build Status](https://img.shields.io/github/actions/workflow/status/garrettdotdev/shortlinkr/build.yml)
+![License](https://img.shields.io/github/license/garrettdotdev/shortlinkr)
+![Coverage](https://img.shields.io/codecov/c/github/garrettdotdev/shortlinkr)
+![Java](https://img.shields.io/badge/java-21-brightgreen)
+![Spring Boot](https://img.shields.io/badge/spring%20boot-3.4.2-brightgreen)
+
+## Table of Contents
+- [Overview](#overview)
+- [What It Does](#what-it-does)
+- [How It Works](#how-it-works)
+- [Limitations](#limitations)
+- [But Why Though?](#but-why-though)
+- [Requirements](#requirements)
+- [Build and Run](#build-and-run)
+- [Usage](#usage)
+  - [Shorten a URL](#shorten-a-url)
+    - [CURL](#curl)
+    - [HTTPie](#httpie)
+  - [Decoding a shortened URL](#decoding-a-shortened-url)
+    - [CURL](#curl-1)
+    - [HTTPie](#httpie-1)
+  - [Response](#response)
+    - [Example response from /encode](#example-response-from-encode)
+    - [Example response from /decode](#example-response-from-decode)
+- [Error Handling](#error-handling)
+  - [Example error response](#example-error-response)
+- [Tests](#tests)
+- [Key Files & Details](#key-files--details)
+  - [UrlShortenerService](#srcmainjavaorggarrettdotdevshortlinkrserviceurlshortenerservice)
+  - [UrlShortenerController](#srcmainjavaorggarrettdotdevshortlinkrcontrollerurlshortenercontroller)
+  - [GlobalExceptionHandler](#srcmainjavaorggarrettdotdevshortlinkrexceptionglobalexceptionhandler)
+  - [UrlShortenerServiceTest](#srctestjavaorggarrettdotdevshortlinkrserviceurlshortenerservicetest)
+  - [UrlShortenerControllerIntegrationTest](#srctestjavaorggarrettdotdevshortlinkrcontrollerurlshortenercontrollerintegrationtest)
+  - [application.properties](#srcmainresourcesapplicationproperties)
+
 ## Overview
 ***Shortlinkr*** is a simple URL shortener built using Java and Spring Boot. It demonstrates how to design, implement, and test a scalable, maintainable web application with concurrency control and clean code practices. Note this application does not create live short links as written.
 
@@ -108,3 +143,23 @@ To run the unit and integration tests, use:
 mvn test
 ```
 The test suite will veirfy the encoding and decoding logic, input validation, and concurrency control.
+
+## Key Files & Details
+
+- ### `src/main/java/org.garrettdotdev.shortlinkr/service/UrlShortenerService`
+    - Provides methods to encode a URL into a shortlink and decode a previously-generated shortlink back into the original URL. It uses an in-memory `ConcurrentHashMap` to store the URL mappings.
+
+- ### `src/main/java/org.garrettdotdev.shortlinkr/controller/UrlShortenerController`
+    - Handles HTTP POST requests for encoding and decoding URLs. It uses the `UrlShortenerService` to perform the actual encoding and decoding logic.
+
+- ### `src/main/java/org.garrettdotdev.shortlinkr/exception/GlobalExceptionHandler`
+    - Handles exceptions globally across the application. It provides custom responses for `IllegalArgumentException`, `IllegalStateException`, and `MethodArgumentNotValidException`.
+
+- ### `src/test/java/org.garrettdotdev.shortlinkr/service/UrlShortenerServiceTest`
+    - Provides unit tests for the `UrlShortenerService` class. It tests the encoding and decoding logic, as well as error handling for invalid inputs.
+
+- ### `src/test/java/org.garrettdotdev.shortlinkr/controller/UrlShortenerControllerIntegrationTest`
+    - Provides integration tests for the `UrlShortenerController` class. It tests the encoding and decoding endpoints with valid and invalid inputs.
+
+- ### `src/main/resources/application.properties`
+    - This file contains the configuration properties for the Spring Boot application. It includes settings for the base URL used in the short URL generation as well as the maximum allowed number of concurrent requests.
