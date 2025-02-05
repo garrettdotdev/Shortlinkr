@@ -146,20 +146,20 @@ The test suite will veirfy the encoding and decoding logic, input validation, an
 
 ## Key Files & Details
 
-- ### `src/main/java/org.garrettdotdev.shortlinkr/service/UrlShortenerService`
+- #### `src/main/java/org.garrettdotdev.shortlinkr/service/UrlShortenerService`
     - Provides methods to encode a URL into a shortlink and decode a previously-generated shortlink back into the original URL. It uses an in-memory `ConcurrentHashMap` to store the URL mappings.
 
-- ### `src/main/java/org.garrettdotdev.shortlinkr/controller/UrlShortenerController`
+- #### `src/main/java/org.garrettdotdev.shortlinkr/controller/UrlShortenerController`
     - Handles HTTP POST requests for encoding and decoding URLs. It uses the `UrlShortenerService` to perform the actual encoding and decoding logic.
 
-- ### `src/main/java/org.garrettdotdev.shortlinkr/exception/GlobalExceptionHandler`
+- #### `src/main/java/org.garrettdotdev.shortlinkr/exception/GlobalExceptionHandler`
     - Handles exceptions globally across the application. It provides custom responses for `IllegalArgumentException`, `IllegalStateException`, and `MethodArgumentNotValidException`.
 
-- ### `src/test/java/org.garrettdotdev.shortlinkr/service/UrlShortenerServiceTest`
+- #### `src/test/java/org.garrettdotdev.shortlinkr/service/UrlShortenerServiceTest`
     - Provides unit tests for the `UrlShortenerService` class. It tests the encoding and decoding logic, as well as error handling for invalid inputs.
 
-- ### `src/test/java/org.garrettdotdev.shortlinkr/controller/UrlShortenerControllerIntegrationTest`
+- #### `src/test/java/org.garrettdotdev.shortlinkr/controller/UrlShortenerControllerIntegrationTest`
     - Provides integration tests for the `UrlShortenerController` class. It tests the encoding and decoding endpoints with valid and invalid inputs.
 
-- ### `src/main/resources/application.properties`
+- #### `src/main/resources/application.properties`
     - This file contains the configuration properties for the Spring Boot application. It includes settings for the base URL used in the short URL generation as well as the maximum allowed number of concurrent requests.
