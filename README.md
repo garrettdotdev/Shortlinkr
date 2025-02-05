@@ -1,7 +1,7 @@
 # Shortlinkr
 ### A simple URL shortener
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/garrettdotdev/shortlinkr/build.yml)
+![Build Status](https://img.shields.io/github/actions/workflow/status/garrettdotdev/shortlinkr/ci.yml?branch=main)
 ![License](https://img.shields.io/github/license/garrettdotdev/shortlinkr)
 ![Coverage](https://img.shields.io/codecov/c/github/garrettdotdev/shortlinkr)
 ![Java](https://img.shields.io/badge/java-21-brightgreen)
