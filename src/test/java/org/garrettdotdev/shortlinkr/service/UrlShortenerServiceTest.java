@@ -44,36 +44,28 @@ public class UrlShortenerServiceTest {
     @Test
     public void testEncodeEmptyUrl() {
         String longUrl = "";
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            urlShortenerService.encode(longUrl);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> urlShortenerService.encode(longUrl));
         assertEquals("Cannot encode empty URL", exception.getMessage());
     }
 
     @Test
     public void testDecodeEmptyUrl() {
         String shortUrl = "";
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            urlShortenerService.decode(shortUrl);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> urlShortenerService.decode(shortUrl));
         assertEquals("Cannot decode empty URL", exception.getMessage());
     }
 
     @Test
     public void testEncodeInvalidUrl() {
         String longUrl = "invalid-url";
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            urlShortenerService.encode(longUrl);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> urlShortenerService.encode(longUrl));
         assertEquals("Invalid URL", exception.getMessage());
     }
 
     @Test
     public void testDecodeInvalidUrl() {
         String shortUrl = "http://invalid-url";
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            urlShortenerService.decode(shortUrl);
-        });
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> urlShortenerService.decode(shortUrl));
         assertEquals("Invalid URL", exception.getMessage());
     }
 
@@ -85,7 +77,7 @@ public class UrlShortenerServiceTest {
     }
 
     @Test
-    public void testEncodeTooManyConcurrentRequests() throws InterruptedException, ExecutionException {
+    public void testEncodeTooManyConcurrentRequests() throws InterruptedException {
         int maxConcurrentRequests = shortlinkProperties.getMaxConcurrentRequests();
         CountDownLatch startLatch = new CountDownLatch(1);
 
@@ -131,7 +123,7 @@ public class UrlShortenerServiceTest {
     }
 
     @Test
-    public void testDecodeTooManyConcurrentRequests() throws InterruptedException, ExecutionException {
+    public void testDecodeTooManyConcurrentRequests() throws InterruptedException {
         int maxConcurrentRequests = shortlinkProperties.getMaxConcurrentRequests();
         CountDownLatch startLatch = new CountDownLatch(1);
 
