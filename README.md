@@ -2,7 +2,7 @@
 ### A simple URL shortener
 
 ![Build Status](https://img.shields.io/github/actions/workflow/status/garrettdotdev/shortlinkr/ci.yml?branch=master)
-![License](https://img.shields.io/github/license/garrettdotdev/shortlinkr)
+![License](https://img.shields.io/github/license/garrettdotdev/Shortlinkr)
 ![Coverage](https://img.shields.io/codecov/c/github/garrettdotdev/shortlinkr)
 ![Java](https://img.shields.io/badge/java-21-brightgreen)
 ![Spring Boot](https://img.shields.io/badge/spring%20boot-3.4.2-brightgreen)
